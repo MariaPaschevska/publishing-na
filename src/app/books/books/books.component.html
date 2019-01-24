@@ -6,65 +6,30 @@
     </div>
   </div>
   <div class="row">
-
-    <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap">
+    <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap" *ngFor="let book of booksList">
       <div class="bookstore-item-content">
-
         <div class="bookstore-item-image">
           <a href="#"></a>
           <div class="bookstore-item-image-holder">
-            <img src="http://newacropolis.org.ua/uploads/production/ckeditor/picture/data/a33/f09/7b-/a33f097b-b856-4081-8cfb-c83aa6aa67e4/content.png" alt="" title="">
+            <img src="{{book.imgUrl}}" alt="" title="">
           </div>
         </div>
-
         <div class="bookstore-item-author">
-          <span>Хорхе Анхель Ліврага</span>
+          <span>{{book.author}}</span>
         </div>
-
         <div class="bookstore-item-title">
-          <span>Плисти проти течії. Том 2</span>
+          <span>{{book.title}}</span><br>
+          <span class="subtitle">{{book.subtitle}}</span>
         </div>
-
         <div class="bookstore-item-buy-bucket">
           <div class="book-price">
-            <span>300 грн</span>
+            <span>{{book.price}} грн</span>
           </div>
           <div class="book-buy-button">
             <button type="button" class="btn btn-primary">Купити</button>
           </div>
         </div>
-
       </div>
     </div>
-
-    <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap">
-      <ul>
-        <li *ngFor="let book of booksList">
-          <div class="bookstore-item-content">
-            <div class="bookstore-item-image">
-              <a href="#"></a>
-              <div class="bookstore-item-image-holder">
-                <img src="{{book.imgUrl}}" alt="" title="">
-              </div>
-            </div>
-            <div class="bookstore-item-author">
-              <span>{{book.author}}</span>
-            </div>
-            <div class="bookstore-item-title">
-              <span>{{book.title}}</span>
-            </div>
-            <div class="bookstore-item-buy-bucket">
-              <div class="book-price">
-                <span>{{book.price}}</span>
-              </div>
-              <div class="book-buy-button">
-                <button type="button" class="btn btn-primary">Купити</button>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-
   </div>
 </div>
