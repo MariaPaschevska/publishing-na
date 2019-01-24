@@ -1,0 +1,21 @@
+<div class="container" style="background-color: #00483A">
+  <nav class="navbar navbar-expand-md navbar-light bg-light" >
+    <a class="navbar-brand" href="#">Видавництво «Новий Акрополь»</a>
+
+    <button class="navbar-toggler" type="button"
+      (click)="navbarOpen = !navbarOpen" [attr.aria-expanded]="!navbarOpen"
+      aria-controls="navbarContent" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent" [collapse]="navbarOpen">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/about">Про нас</a>
+        <a class="nav-item nav-link" routerLink="/books">Книгарня</a>
+        <a class="nav-item nav-link" routerLink="/projects">Проекти</a>
+        <a class="nav-item nav-link" routerLink="/contacts">Контакти</a>
+      </div>
+    </div>
+  </nav>
+</div>
+

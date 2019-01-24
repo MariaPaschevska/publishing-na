@@ -10,6 +10,8 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import {CollapseModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
     BookDetailsComponent,
     BookEditComponent,
     ProjectsComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CollapseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
