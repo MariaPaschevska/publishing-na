@@ -10,5 +10,6 @@ export class Book {
   pageNumber: number;
   description: string;
   imgUrl: string;
+  price: number;
   buyButton: string;
 }

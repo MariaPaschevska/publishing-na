@@ -37,5 +37,34 @@
       </div>
     </div>
 
+    <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap">
+      <ul>
+        <li *ngFor="let book of booksList">
+          <div class="bookstore-item-content">
+            <div class="bookstore-item-image">
+              <a href="#"></a>
+              <div class="bookstore-item-image-holder">
+                <img src="{{book.imgUrl}}" alt="" title="">
+              </div>
+            </div>
+            <div class="bookstore-item-author">
+              <span>{{book.author}}</span>
+            </div>
+            <div class="bookstore-item-title">
+              <span>{{book.title}}</span>
+            </div>
+            <div class="bookstore-item-buy-bucket">
+              <div class="book-price">
+                <span>{{book.price}}</span>
+              </div>
+              <div class="book-buy-button">
+                <button type="button" class="btn btn-primary">Купити</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </div>
