@@ -12,6 +12,9 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import {CollapseModule} from "ngx-bootstrap";
+import {HttpClientModule} from "@angular/common/http";
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './services/in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,14 @@ import {CollapseModule} from "ngx-bootstrap";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    ),
     CollapseModule.forRoot()
   ],
   providers: [],
