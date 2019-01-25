@@ -11,5 +11,6 @@ export class Book {
   description: string;
   imgUrl: string;
   price: number;
-  buyButton: string;
+  buyButton: boolean;
+  buyLink: string;
 }
