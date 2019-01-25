@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../../services/books.service";
 import {Book} from "../book";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-books',
@@ -10,10 +11,20 @@ import {Book} from "../book";
 export class BooksComponent implements OnInit {
 
   booksList: Book[];
+  showAllBooks: boolean;
 
   constructor(
-    private booksService: BooksService
-  ) { }
+    private booksService: BooksService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.route.url
+      .subscribe(
+        () => {
+          this.showAllBooks = !this.route.children.length;
+        }
+      );
+  }
 
   ngOnInit() {
     this.getBooks();
@@ -25,5 +36,9 @@ export class BooksComponent implements OnInit {
       error => console.log('Subscription getBooks() error', error),
       () => console.log('Subscription getBooks() completed')
     );
+  }
+
+  openBookDetailsPage(id) {
+    this.router.navigate(['books', id]);
   }
 }

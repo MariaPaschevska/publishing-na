@@ -1,7 +1,23 @@
 <div class="container page-content">
   <div class="row">
     <div class="col-12">
-      <h2>Книга в деталях</h2>
+      <h2>{{book?.title}}. {{book?.subtitle}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <img src="{{book.imgUrl}}">
+    </div>
+    <div class="col-sm-6 col-md-8">
+      <h4>{{book.author}}</h4>
+      <p><strong>Рік видання:</strong> {{book.year}}<br>
+       <strong>ISBN:</strong> {{book.isbn}}<br>
+       <strong>Мова видання:</strong> {{book.language}}<br>
+       <strong>Перекладено з:</strong> {{book.translatedFrom}}</p>
+      <p>{{book.description}}</p>
+
+      <button type="button" class="btn btn-primary">Купити</button>
+      <button type="button" (click)="goBack()" class="btn btn-secondary">До книгарні</button>
     </div>
   </div>
 </div>

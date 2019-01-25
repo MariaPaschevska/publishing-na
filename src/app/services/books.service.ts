@@ -23,4 +23,14 @@ export class BooksService {
         catchError(console.log('getBooks error', []))
       );
   }
+
+  /** get Books by id from the mocked server */
+  getBook(id: number): Observable<Book> {
+    const url = `${this.booksUrl}/${id}`;
+    return this.http.get<Book>(url)
+      .pipe(
+        tap(_ => console.log('fetched selected book')),
+        catchError(console.log(`getBook id=${id} error`))
+      );
+  }
 }

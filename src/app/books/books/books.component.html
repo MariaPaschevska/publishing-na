@@ -1,4 +1,4 @@
-<div class="container page-content">
+<div class="container page-content" *ngIf="showAllBooks">
   <div class="row">
     <div class="col-12">
       <h2>Наші книги</h2>
@@ -8,8 +8,7 @@
   <div class="row">
     <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap" *ngFor="let book of booksList">
       <div class="bookstore-item-content">
-        <div class="bookstore-item-image">
-          <a href="#"></a>
+        <div class="bookstore-item-image" (click)="openBookDetailsPage(book.id)">
           <div class="bookstore-item-image-holder">
             <img src="{{book.imgUrl}}" alt="{{book.title}}" title="{{book.title}}">
           </div>
@@ -17,8 +16,8 @@
         <div class="bookstore-item-author">
           <span>{{book.author}}</span>
         </div>
-        <div class="bookstore-item-title">
-          <span>{{book.title}}</span><br>
+        <div class="bookstore-item-title" (click)="openBookDetailsPage(book.id)">
+          <span class="title">{{book.title}}</span><br>
           <span class="subtitle">{{book.subtitle}}</span>
         </div>
 
@@ -47,3 +46,5 @@
     </div>
   </div>
 </div>
+
+<router-outlet></router-outlet>
