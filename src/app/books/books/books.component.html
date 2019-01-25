@@ -21,14 +21,28 @@
           <span>{{book.title}}</span><br>
           <span class="subtitle">{{book.subtitle}}</span>
         </div>
-        <div class="bookstore-item-buy-bucket">
-          <div class="book-price">
-            <span>{{book.price}} грн</span>
+
+        <div class="bookstore-item-buy-bucket" ngSwitch="{{book.buyButton}}">
+          <!--if the book is available for buying -->
+          <div *ngSwitchCase="'true'">
+            <div class="book-price">
+              <span>{{book.price}} грн</span>
+            </div>
+            <div class="book-buy-button">
+              <button type="button" class="btn btn-primary">Купити</button>
+            </div>
           </div>
-          <div class="book-buy-button">
-            <button type="button" class="btn btn-primary">Купити</button>
+          <!--if the book is not available for buying -->
+          <div *ngSwitchCase="'false'" class="bookstore-item-buy-not-available">
+            <p><span>Немає в наявності</span></p>
+            <p class="bookstore-item-note">Готується електронне видання</p>
+          </div>
+          <!--default case when there are no matches -->
+          <div *ngSwitchDefault>
+            <p>Наявність та ціну книги уточнюйте у представників видавництва</p>
           </div>
         </div>
+
       </div>
     </div>
   </div>
