@@ -43,7 +43,7 @@ export class BooksService {
 
     return this.http.put<Book>(this.booksUrl, book, httpOptions)
       .pipe(
-        tap(_ => console.log(`updated book id=${book.title}`)),
+        tap(_ => console.log(`updated book id=${book.id}`)),
         catchError(this.handleError)
       );
   }
