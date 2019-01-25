@@ -20,7 +20,7 @@ export class BooksService {
     return this.http.get<Book[]>(this.booksUrl)
       .pipe(
         tap(_ => console.log('fetched books')),
-        catchError(console.log('getBooks error', []))
+        catchError(console.log('getBooks error'))
       );
   }
 

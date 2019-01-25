@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { Location } from '@angular/common';
 import {BooksService} from "../../services/books.service";
 
@@ -16,6 +16,7 @@ export class BookDetailsComponent implements OnInit {
   constructor(
     private booksService: BooksService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location
   ) {
     this.route.params
@@ -47,5 +48,9 @@ export class BookDetailsComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  openBookEditPage(id) {
+    this.router.navigate(['books', id, 'edit']);
   }
 }
