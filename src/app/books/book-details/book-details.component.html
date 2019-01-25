@@ -1,12 +1,15 @@
 <div class="container page-content">
   <div class="row">
     <div class="col-12">
-      <h2>{{book?.title}}. {{book?.subtitle}}</h2>
+      <h2 class="book-title">{{book?.title}}</h2>
+      <h2 class="book-subtitle">{{book?.subtitle}}</h2>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6 col-md-4">
-      <img src="{{book.imgUrl}}">
+      <div class="book-image-holder">
+        <img src="{{book.imgUrl}}">
+      </div>
     </div>
     <div class="col-sm-6 col-md-8">
       <h4>{{book.author}}</h4>
@@ -16,9 +19,26 @@
        <strong>Перекладено з:</strong> {{book.translatedFrom}}</p>
       <p>{{book.description}}</p>
 
-      <div class="button-group">
-        <button type="button" class="btn btn-primary">Купити</button>
-        <button type="button" (click)="goBack()" class="btn btn-secondary">До книгарні</button>
+      <div class="bookstore-item-buy-bucket" ngSwitch="{{book.buyButton}}">
+        <!--if the book is available for buying -->
+        <div *ngSwitchCase="'true'">
+          <div class="book-price">
+            <span>{{book.price}} грн</span>
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn btn-primary">Купити</button>
+            <button type="button" (click)="goBack()" class="btn btn-secondary">До книгарні</button>
+          </div>
+        </div>
+        <!--if the book is not available for buying -->
+        <div *ngSwitchCase="'false'" class="bookstore-item-buy-not-available">
+          <p><span>Немає в наявності</span></p>
+          <p class="bookstore-item-note">Готується електронне видання</p>
+        </div>
+        <!--default case when there are no matches -->
+        <div *ngSwitchDefault>
+          <p>Наявність та ціну книги уточнюйте у представників видавництва</p>
+        </div>
       </div>
     </div>
   </div>
