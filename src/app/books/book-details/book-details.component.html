@@ -5,7 +5,7 @@
       <h2 class="book-subtitle">{{book?.subtitle}}</h2>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="book">
     <div class="col-sm-6 col-md-4">
       <div class="book-image-holder">
         <img src="{{book.imgUrl}}">

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../../services/books.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-book-edit',
@@ -15,12 +15,12 @@ export class BookEditComponent implements OnInit {
   book: object;
 
   bookEditForm = new FormGroup({
-    author: new FormControl(''),
-    year: new FormControl(''),
-    isbn: new FormControl(''),
-    language: new FormControl(''),
-    translatedFrom: new FormControl(''),
-    description: new FormControl('')
+    author: new FormControl('', Validators.required),
+    year: new FormControl('', Validators.required),
+    isbn: new FormControl('', Validators.required),
+    language: new FormControl('', Validators.required),
+    translatedFrom: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required)
   });
 
   constructor(
@@ -59,9 +59,9 @@ export class BookEditComponent implements OnInit {
     this.location.back();
   }
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log('Submitted Book', this.bookEditForm.value);
+  save(): void {
+    console.log('Saved bookEditForm Book', this.bookEditForm.value);
+    this.booksService.updateBook(this.bookEditForm.value)
+      .subscribe(() => this.goBack());
   }
-
 }
