@@ -42,6 +42,13 @@
           </div>
         </div>
 
+        <div class="admin-buttons">
+          <button type="button" class="btn btn-info"
+                  (click)="openBookEditPage(book.id)">Редагувати</button>
+          <button type="button" class="btn btn-danger"
+                  (click)="deleteBook(book)">Видалити</button>
+        </div>
+
       </div>
     </div>
   </div>

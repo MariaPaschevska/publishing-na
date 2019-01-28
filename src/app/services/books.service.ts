@@ -48,6 +48,19 @@ export class BooksService {
       );
   }
 
+  /** DELETE: delete the book from the server */
+  deleteBook(book: Book | number): Observable<Book> {
+    const id = typeof book === 'number' ? book : book.id;
+    const url = `${this.booksUrl}/${id}`;
+
+    return this.http.delete<Book>(url, httpOptions)
+      .pipe(
+        tap(_ => console.log(`delete book id=${id}`)),
+        catchError(this.handleError)
+      );
+
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
