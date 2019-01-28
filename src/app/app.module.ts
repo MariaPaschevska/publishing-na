@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './services/in-memory-data.service';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BookEditComponent,
     ProjectsComponent,
     ProjectDetailsComponent,
-    NavigationComponent
+    NavigationComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
