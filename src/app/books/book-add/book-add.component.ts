@@ -21,6 +21,7 @@ export class BookAddComponent implements OnInit {
     description: new FormControl('', Validators.required)
   });
 
+  selectedFile: File = null;
 
   constructor(
     private booksService: BooksService,
@@ -28,6 +29,15 @@ export class BookAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+    console.log('Selected file is', this.selectedFile);
+  }
+
+  onUpload() {
+    this.booksService.addImage(this.selectedFile);
   }
 
   goBack(): void {

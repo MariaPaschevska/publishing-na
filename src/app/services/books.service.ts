@@ -39,13 +39,23 @@ export class BooksService {
 
   /** PUT: update the book on the server */
   updateBook(book: Book): Observable<Book> {
-    console.log('this is a book I want to update: ', book);
+    console.log('This is a book to update: ', book);
 
     return this.http.put<Book>(this.booksUrl, book, httpOptions)
       .pipe(
         tap(_ => console.log(`updated book id=${book._id}`)),
         catchError(this.handleError)
       );
+  }
+
+  addImage (file: object) {
+    console.log('This is an image to upload: ', file);
+    const formData = new FormData();
+    formData.append('image', file, file.name);
+    this.http.post('url', formData, httpOptions)
+      .subscribe(response => {
+        console.log('addImage response', response);
+      });
   }
 
   /** POST: add a new book to the server */
