@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class BookEditComponent implements OnInit {
 
-  id: number;
+  id: string;
   book: object;
 
   bookEditForm = new FormGroup({
@@ -31,7 +31,7 @@ export class BookEditComponent implements OnInit {
     this.route.params
       .subscribe(
         params => {
-          this.id = +params['id'];
+          this.id = params['id'];
         }
       );
   }

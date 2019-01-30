@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap" *ngFor="let book of booksList">
       <div class="bookstore-item-content">
-        <div class="bookstore-item-image" (click)="openBookDetailsPage(book.id)">
+        <div class="bookstore-item-image" (click)="openBookDetailsPage(book._id)">
           <div class="bookstore-item-image-holder">
             <img src="{{book.imgUrl}}" alt="{{book.title}}" title="{{book.title}}">
           </div>
@@ -16,7 +16,7 @@
         <div class="bookstore-item-author">
           <span>{{book.author}}</span>
         </div>
-        <div class="bookstore-item-title" (click)="openBookDetailsPage(book.id)">
+        <div class="bookstore-item-title" (click)="openBookDetailsPage(book._id)">
           <span class="title">{{book.title}}</span><br>
           <span class="subtitle">{{book.subtitle}}</span>
         </div>
@@ -44,9 +44,9 @@
 
         <div class="admin-buttons">
           <button type="button" class="btn btn-info"
-                  (click)="openBookEditPage(book.id)">Редагувати</button>
+                  (click)="openBookEditPage(book._id)">Редагувати</button>
           <button type="button" class="btn btn-danger"
-                  (click)="deleteBook(book)">Видалити</button>
+                  (click)="deleteBook(book._id)">Видалити</button>
         </div>
 
       </div>

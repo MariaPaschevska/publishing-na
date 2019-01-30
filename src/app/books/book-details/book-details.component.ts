@@ -10,7 +10,7 @@ import {BooksService} from "../../services/books.service";
 })
 export class BookDetailsComponent implements OnInit {
 
-  id: number;
+  id: string;
   book: object;
 
   constructor(
@@ -22,7 +22,7 @@ export class BookDetailsComponent implements OnInit {
     this.route.params
       .subscribe(
         params => {
-          this.id = +params['id'];
+          this.id = params['id'];
         }
       );
   }

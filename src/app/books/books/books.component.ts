@@ -34,7 +34,7 @@ export class BooksComponent implements OnInit {
     this.booksService.getBooks().subscribe(
       booksList => this.booksList = booksList,
       error => console.log('Subscription getBooks() error', error),
-      () => console.log('Subscription getBooks() completed')
+      () => console.log('Subscription getBooks() completed', this.booksList)
     );
   }
 

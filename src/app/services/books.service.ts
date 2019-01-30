@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BooksService {
-  private booksUrl = 'api/books';
+  private booksUrl = 'http://82.192.179.130:2222/books';
 
   constructor(
     private http: HttpClient
@@ -28,7 +28,7 @@ export class BooksService {
   }
 
   /** get Books by id from the mocked server */
-  getBook(id: number): Observable<Book> {
+  getBook(id: string): Observable<Book> {
     const url = `${this.booksUrl}/${id}`;
     return this.http.get<Book>(url)
       .pipe(
@@ -43,14 +43,13 @@ export class BooksService {
 
     return this.http.put<Book>(this.booksUrl, book, httpOptions)
       .pipe(
-        tap(_ => console.log(`updated book id=${book.id}`)),
+        tap(_ => console.log(`updated book id=${book._id}`)),
         catchError(this.handleError)
       );
   }
 
   /** DELETE: delete the book from the server */
-  deleteBook(book: Book | number): Observable<Book> {
-    const id = typeof book === 'number' ? book : book.id;
+  deleteBook(id: string): Observable<Book> {
     const url = `${this.booksUrl}/${id}`;
 
     return this.http.delete<Book>(url, httpOptions)

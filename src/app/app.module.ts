@@ -13,8 +13,6 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { NavigationComponent } from './navigation/navigation.component';
 import {CollapseModule} from "ngx-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './services/in-memory-data.service';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
 
@@ -37,13 +35,6 @@ import { FooterComponent } from './footer/footer.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
     CollapseModule.forRoot()
   ],
   providers: [],
