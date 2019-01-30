@@ -15,6 +15,7 @@ import {CollapseModule} from "ngx-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
+import { BookAddComponent } from './books/book-add/book-add.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FooterComponent } from './footer/footer.component';
     ProjectsComponent,
     ProjectDetailsComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    BookAddComponent
   ],
   imports: [
     BrowserModule,

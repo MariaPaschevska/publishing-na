@@ -7,12 +7,14 @@ import {ProjectsComponent} from "./projects/projects/projects.component";
 import {BooksComponent} from "./books/books/books.component";
 import {ContactsComponent} from "./contacts/contacts.component";
 import {ProjectDetailsComponent} from "./projects/project-details/project-details.component";
+import {BookAddComponent} from "./books/book-add/book-add.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
   { path: 'books', component: BooksComponent,
     children: [
+      { path: 'add', component: BookAddComponent },
       { path: ':id', component: BookDetailsComponent },
       { path: ':id/edit', component: BookEditComponent }
     ]
