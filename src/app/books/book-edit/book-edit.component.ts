@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../../services/books.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-book-edit',
@@ -13,15 +12,6 @@ export class BookEditComponent implements OnInit {
 
   id: string;
   book: object;
-
-  bookEditForm = new FormGroup({
-    author: new FormControl('', Validators.required),
-    year: new FormControl('', Validators.required),
-    isbn: new FormControl('', Validators.required),
-    language: new FormControl('', Validators.required),
-    translatedFrom: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
-  });
 
   constructor(
     private booksService: BooksService,
@@ -59,9 +49,8 @@ export class BookEditComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
-    console.log('Saved bookEditForm Book', this.bookEditForm.value);
-    this.booksService.updateBook(this.bookEditForm.value)
+  onSavedData(formData) {
+    this.booksService.updateBook(formData)
       .subscribe(() => this.goBack());
   }
 }

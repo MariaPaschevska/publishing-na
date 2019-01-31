@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit,  Input, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -24,6 +24,9 @@ export class BookFormComponent implements OnInit {
     description: new FormControl('', Validators.required)
   });
 
+  selectedFile: File = null;
+
+  @Input() book: object;
   @Output() bookFormSaved = new EventEmitter();
 
   constructor() { }
@@ -35,5 +38,14 @@ export class BookFormComponent implements OnInit {
     const formData = this.bookForm.value;
     console.log('formData value', formData);
     this.bookFormSaved.emit(formData);
+  }
+
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+    console.log('Selected file is', this.selectedFile);
+  }
+
+  onUpload() {
+    console.log('onUpload file method to be added');
   }
 }
