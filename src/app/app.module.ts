@@ -45,6 +45,9 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     ModalModule.forRoot()
   ],
   providers: [],
+  entryComponents: [
+    AuthenticationComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

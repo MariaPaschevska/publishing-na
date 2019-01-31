@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BsModalRef} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-authentication',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalRef: BsModalRef
+  ) { }
 
   ngOnInit() {
   }

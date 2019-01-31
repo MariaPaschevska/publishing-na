@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationComponent} from "../authentication/authentication.component";
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.sass']
 })
 export class FooterComponent implements OnInit {
+  bsModalRef: BsModalRef;
 
-  constructor() { }
+  constructor(
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
+  }
+
+  openAdminFormModal() {
+    this.bsModalRef = this.modalService.show(AuthenticationComponent);
   }
 
 }
