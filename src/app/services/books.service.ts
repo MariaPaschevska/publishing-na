@@ -38,10 +38,10 @@ export class BooksService {
   }
 
   /** PUT: update the book on the server */
-  updateBook(book: Book): Observable<Book> {
+  updateBook(id: string, book: Book): Observable<Book> {
     console.log('This is a book to update: ', book);
-
-    return this.http.put<Book>(this.booksUrl, book, httpOptions)
+    const url = `${this.booksUrl}/${id}`;
+    return this.http.put<Book>(url, book, httpOptions)
       .pipe(
         tap(_ => console.log(`updated book id=${book._id}`)),
         catchError(this.handleError)

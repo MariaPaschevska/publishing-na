@@ -50,7 +50,7 @@ export class BookEditComponent implements OnInit {
   }
 
   onSavedData(formData) {
-    this.booksService.updateBook(formData)
+    this.booksService.updateBook(this.id, formData)
       .subscribe(() => this.goBack());
   }
 }
