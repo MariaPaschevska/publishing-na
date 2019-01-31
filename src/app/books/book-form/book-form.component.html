@@ -1,0 +1,70 @@
+<form [formGroup]="bookForm" (ngSubmit)="save()">
+  <div class="form-group">
+    <label>Автор:</label>
+    <input type="text" formControlName="author" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Назва:</label>
+    <input type="text" formControlName="title" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Додаткова назва:</label>
+    <input type="text" formControlName="subtitle" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Рік видання:</label>
+    <input type="text" formControlName="year" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>ISBN:</label>
+    <input type="text" formControlName="isbn" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Мова видання:</label>
+    <input type="text" formControlName="language" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Перекладено з:</label>
+    <input type="text" formControlName="translatedFrom" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Кількість сторінок:</label>
+    <input type="text" formControlName="pageNumber" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Ціна:</label>
+    <input type="text" formControlName="price" required class="form-control">
+  </div>
+  <div class="form-group">
+    <div class="btn-group" btnRadioGroup formControlName="buyButton" required aria-describedby="buyButtonHelpBlock">
+      <label btnRadio="true" class="btn btn-primary"
+             tabindex="0" role="button">Так</label>
+      <label btnRadio="false" class="btn btn-primary"
+             tabindex="0" role="button">Ні</label>
+      <small id="buyButton" class="form-text text-muted">
+        Додати кнопку "Купити"?
+      </small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>URL картинки:</label>
+    <input type="text" formControlName="imageUrl" class="form-control" aria-describedby="imageUrlHelpBlock">
+    <small id="imageUrlHelpBlock" class="form-text text-muted">
+      Вкажіть URL картинки або скористайтеся формою завантаження нової картинки нижче
+    </small>
+  </div>
+  <div class="custom-file">
+    <input type="file" formControlName="imageBrowse" class="form-control custom-file-input" id="customFile"
+           (change)="onFileSelected($event)">
+    <label class="custom-file-label" for="customFile">Завантажте нову картинку...</label>
+    <button type="button" class="btn btn-primary" (click)="onUpload()">Завантажити</button>
+  </div>
+  <div class="form-group">
+    <label>Опис:</label>
+    <textarea rows="6" formControlName="description" required class="form-control"></textarea>
+  </div>
+
+  <button type="submit" [disabled]="!bookForm.valid" class="btn btn-primary">Зберегти</button>
+  <button type="button" (click)="goBack()" class="btn btn-secondary">Назад</button>
+
+</form>

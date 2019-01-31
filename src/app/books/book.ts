@@ -9,7 +9,7 @@ export class Book {
   translatedFrom: string;
   pageNumber: number;
   description: string;
-  imgUrl: string;
+  imageUrl: string;
   price: number;
   buyButton: boolean;
   buyLink: string;
