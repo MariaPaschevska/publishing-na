@@ -46,10 +46,10 @@ export class BooksComponent implements OnInit {
     this.router.navigate(['books', id, 'edit']);
   }
 
-  deleteBook(book: Book): void {
-    this.booksList = this.booksList.filter(b => b !== book);
-    this.booksService.deleteBook(book).subscribe(
-      console.log('Subscription deleteBook book:', book)
+  deleteBook(id) {
+    this.booksList = this.booksList.filter(b => b !== id);
+    this.booksService.deleteBook(id).subscribe(
+      console.log('Subscription deleteBook book with id:', id)
     )
   }
 }

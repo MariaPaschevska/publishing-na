@@ -48,7 +48,7 @@ export class BooksService {
       );
   }
 
-  addImage (file: object) {
+  addImage (file: File) {
     console.log('This is an image to upload: ', file);
     const formData = new FormData();
     formData.append('image', file, file.name);
