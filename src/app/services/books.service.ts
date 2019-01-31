@@ -69,10 +69,10 @@ export class BooksService {
   }
 
   /** DELETE: delete the book from the server */
-  deleteBook(id: string): Observable<Book> {
+  deleteBook(id: string): Observable<any> {
     const url = `${this.booksUrl}/${id}`;
 
-    return this.http.delete<Book>(url, httpOptions)
+    return this.http.delete<any>(url, httpOptions)
       .pipe(
         tap(_ => console.log(`delete book id=${id}`)),
         catchError(this.handleError)
