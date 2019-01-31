@@ -11,12 +11,13 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import {CollapseModule} from "ngx-bootstrap";
+import {CollapseModule, ModalModule} from "ngx-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
 import { BookAddComponent } from './books/book-add/book-add.component';
 import { BookFormComponent } from './books/book-form/book-form.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BookFormComponent } from './books/book-form/book-form.component';
     NavigationComponent,
     FooterComponent,
     BookAddComponent,
-    BookFormComponent
+    BookFormComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { BookFormComponent } from './books/book-form/book-form.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
