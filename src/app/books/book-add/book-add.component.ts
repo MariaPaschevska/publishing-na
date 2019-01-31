@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { Location } from '@angular/common';
-import {BooksService} from "../../services/books.service";
+import { BooksService } from "../../services/books.service";
 
 @Component({
   selector: 'app-book-add',
@@ -9,17 +8,6 @@ import {BooksService} from "../../services/books.service";
   styleUrls: ['./book-add.component.sass']
 })
 export class BookAddComponent implements OnInit {
-
-  bookAddForm = new FormGroup({
-    author: new FormControl('', Validators.required),
-    year: new FormControl('', Validators.required),
-    isbn: new FormControl('', Validators.required),
-    language: new FormControl('', Validators.required),
-    translatedFrom: new FormControl('', Validators.required),
-    imageUrl: new FormControl(''),
-    imageBrowse: new FormControl(''),
-    description: new FormControl('', Validators.required)
-  });
 
   selectedFile: File = null;
 
@@ -44,10 +32,8 @@ export class BookAddComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
-    console.log('Added book from Form is', this.bookAddForm.value);
-    this.booksService.addBook(this.bookAddForm.value)
+  onSavedData(formData) {
+    this.booksService.addBook(formData)
       .subscribe(() => this.goBack());
   }
-
 }
