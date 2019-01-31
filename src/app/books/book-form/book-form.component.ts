@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -18,13 +18,13 @@ export class BookFormComponent implements OnInit {
     translatedFrom: new FormControl('', Validators.required),
     pageNumber: new FormControl(''),
     price: new FormControl(''),
-    buyButton: new FormControl('', Validators.required),
+    buyButton: new FormControl(''),
     imageUrl: new FormControl(''),
     imageBrowse: new FormControl(''),
     description: new FormControl('', Validators.required)
   });
 
-  formData = null;
+  @Output() bookFormSaved = new EventEmitter();
 
   constructor() { }
 
@@ -32,10 +32,8 @@ export class BookFormComponent implements OnInit {
   }
 
   save(): void {
-    this.formData = this.bookForm.value;
-    console.log('formData value', this.formData);
+    const formData = this.bookForm.value;
+    console.log('formData value', formData);
+    this.bookFormSaved.emit(formData);
   }
-
-  // this.outputName.emit(formData)
-
 }

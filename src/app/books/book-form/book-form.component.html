@@ -29,21 +29,21 @@
   </div>
   <div class="form-group">
     <label>Кількість сторінок:</label>
-    <input type="text" formControlName="pageNumber" required class="form-control">
+    <input type="text" formControlName="pageNumber" class="form-control">
   </div>
   <div class="form-group">
     <label>Ціна:</label>
     <input type="text" formControlName="price" required class="form-control">
   </div>
   <div class="form-group">
-    <div class="btn-group" btnRadioGroup formControlName="buyButton" required aria-describedby="buyButtonHelpBlock">
-      <label btnRadio="true" class="btn btn-primary"
-             tabindex="0" role="button">Так</label>
-      <label btnRadio="false" class="btn btn-primary"
-             tabindex="0" role="button">Ні</label>
-      <small id="buyButton" class="form-text text-muted">
-        Додати кнопку "Купити"?
-      </small>
+    <label>Додати кнопку "Купити"?</label><br>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" formControlName="buyButton" id="inlineRadio1" value="true">
+      <label class="form-check-label" for="inlineRadio1">Так</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" formControlName="buyButton" id="inlineRadio2" value="false">
+      <label class="form-check-label" for="inlineRadio2">Ні</label>
     </div>
   </div>
   <div class="form-group">
@@ -65,6 +65,4 @@
   </div>
 
   <button type="submit" [disabled]="!bookForm.valid" class="btn btn-primary">Зберегти</button>
-  <button type="button" (click)="goBack()" class="btn btn-secondary">Назад</button>
-
 </form>
