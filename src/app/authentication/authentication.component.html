@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="authForm" (ngSubmit)="save()">
+  <form [formGroup]="authForm" (ngSubmit)="authEnter()">
     <div class="form-group">
       <label>Логін:</label>
       <input type="email" formControlName="login" required class="form-control" placeholder="Enter email">
