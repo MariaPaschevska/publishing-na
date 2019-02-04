@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from "../../services/books.service";
 import {Book} from "../book";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-books',
@@ -12,9 +13,11 @@ export class BooksComponent implements OnInit {
 
   booksList: Book[];
   showAllBooks: boolean;
+  isAdmin: boolean;
 
   constructor(
     private booksService: BooksService,
+    private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -52,5 +55,13 @@ export class BooksComponent implements OnInit {
       error => console.log('deleteBook() error', error),
       () => console.log('deleteBook() completed', this.booksList)
     );
+  }
+
+  getUserRoles() {
+    const roles = this.authService.currentUser.roles;
+    console.log('BooksComponent: userRoles', roles);
+    let checkAdmin = role => role == 'admin';
+    this.isAdmin = roles.some(checkAdmin);
+    console.log('BooksComponent isAdmin?', this.isAdmin);
   }
 }
