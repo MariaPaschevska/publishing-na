@@ -30,6 +30,7 @@ export class AuthenticationComponent implements OnInit {
     const login = this.authForm.value.login;
     const password = this.authForm.value.password;
     this.getUser(login, password);
+    this.modalRef.hide();
   }
 
   getUser(login, password) {
