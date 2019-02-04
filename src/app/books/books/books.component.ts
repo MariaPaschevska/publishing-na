@@ -33,8 +33,8 @@ export class BooksComponent implements OnInit {
   getBooks() {
     this.booksService.getBooks().subscribe(
       booksList => this.booksList = booksList,
-      error => console.log('Subscription getBooks() error', error),
-      () => console.log('Subscription getBooks() completed', this.booksList)
+      error => console.log('GetBooks() error', error),
+      () => console.log('GetBooks() completed', this.booksList)
     );
   }
 
@@ -47,9 +47,10 @@ export class BooksComponent implements OnInit {
   }
 
   deleteBook(id, book) {
-    this.booksList = this.booksList.filter(b => b !== book);
     this.booksService.deleteBook(id).subscribe(
-      console.log('Subscription deleteBook book', book)
+      () => this.booksList = this.booksList.filter(b => b !== book),
+      error => console.log('deleteBook() error', error),
+      () => console.log('deleteBook() completed', this.booksList)
     );
   }
 }
