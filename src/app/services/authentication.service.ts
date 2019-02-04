@@ -12,16 +12,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private authUrl = 'http://82.192.179.130:2222/login';
+  private authUrl = 'http://82.192.179.130:2222/auth';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.authUrl)
+  getUser(login, password): Observable<User> {
+    const url = `${this.authUrl}?name=${login}&password=${password}`;
+    return this.http.get<User>(url)
       .pipe(
-        tap(_ => console.log('getUsers completed')),
+        tap(_ => console.log('getUser completed')),
         catchError(this.handleError)
       );
   }

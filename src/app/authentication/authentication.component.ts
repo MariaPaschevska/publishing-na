@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "./user";
 import {AuthenticationService} from "../services/authentication.service";
+import {User} from "./user";
 
 @Component({
   selector: 'app-authentication',
@@ -16,31 +16,28 @@ export class AuthenticationComponent implements OnInit {
     password: new FormControl('', Validators.required)
   });
 
-  users: User[];
   user: User;
 
   constructor(
     public modalRef: BsModalRef,
-    private authService = AuthenticationService
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
-    this.getUsers();
   }
 
-  getUsers() {
-    this.authService.getUsers().subscribe(
-      users => this.users = users,
+  getUser(login, password) {
+    this.authService.getUser(login, password).subscribe(
+      user => this.user = user,
       error => console.log('Subscription getUsers() error', error),
-      () => console.log('Subscription getUsers() completed', this.users)
+      () => console.log('Subscription getUsers() completed', this.user)
     );
   }
 
   authEnter(): void {
     const login = this.authForm.value.login;
-    const pass = this.authForm.value.password;
-    this.user.login = login;
-    this.user.password = pass;
-    console.log('So what is the user there?', this.user);
+    const password = this.authForm.value.password;
+    console.log('So what is the user there?', login, password);
+    this.getUser(login, password);
   }
 }
