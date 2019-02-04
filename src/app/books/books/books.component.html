@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap" *ngFor="let book of booksList">
-      <div class="bookstore-item-content">
+      <div [className]="isAdmin ? 'bookstore-item-content admin' : 'bookstore-item-content user'">
         <div class="bookstore-item-image" (click)="openBookDetailsPage(book._id)">
           <div class="bookstore-item-image-holder">
             <img src="{{book.imageUrl}}" alt="{{book.title}}" title="{{book.title}}">
