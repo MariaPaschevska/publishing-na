@@ -28,6 +28,16 @@ export class AuthenticationService {
       );
   }
 
+  checkAdmin() {
+    if (this.currentUser) {
+      const roles = this.currentUser.roles;
+      let checkAdmin = role => role == 'admin';
+      return roles.some(checkAdmin);
+    } else {
+      return false;
+    }
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
