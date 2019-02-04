@@ -26,18 +26,17 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit() {
   }
 
-  getUser(login, password) {
-    this.authService.getUser(login, password).subscribe(
-      user => this.user = user,
-      error => console.log('Subscription getUsers() error', error),
-      () => console.log('Subscription getUsers() completed', this.user)
-    );
-  }
-
   authEnter(): void {
     const login = this.authForm.value.login;
     const password = this.authForm.value.password;
-    console.log('So what is the user there?', login, password);
     this.getUser(login, password);
+  }
+
+  getUser(login, password) {
+    this.authService.getUser(login, password).subscribe(
+      user => this.user = user,
+      error => console.log('AuthenticationComponent subscription getUser() error', error),
+      () => console.log('AuthenticationComponent subscription getUser() completed', this.user)
+    );
   }
 }

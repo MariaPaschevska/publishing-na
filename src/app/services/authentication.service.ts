@@ -13,6 +13,7 @@ const httpOptions = {
 })
 export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
+  currentUser: User;
 
   constructor(
     private http: HttpClient
@@ -22,7 +23,7 @@ export class AuthenticationService {
     const url = `${this.authUrl}?name=${login}&password=${password}`;
     return this.http.get<User>(url)
       .pipe(
-        tap(_ => console.log('getUser completed')),
+        tap(user => this.currentUser = user),
         catchError(this.handleError)
       );
   }
