@@ -12,12 +12,13 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import {CollapseModule, ModalModule} from "ngx-bootstrap";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
 import { BookAddComponent } from './books/book-add/book-add.component';
 import { BookFormComponent } from './books/book-form/book-form.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import {Interceptor} from "./authentication/interceptor";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,13 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     CollapseModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    }
+  ],
   entryComponents: [
     AuthenticationComponent
   ],
