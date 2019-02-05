@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import {User} from "../authentication/user";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +15,10 @@ export class AuthenticationService {
     private http: HttpClient
   ) { }
 
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   getUser(login, password): Observable<User> {
     const url = `${this.authUrl}?name=${login}&password=${password}`;
     return this.http.get<User>(url)
@@ -30,6 +30,7 @@ export class AuthenticationService {
 
   checkAdmin() {
     if (this.currentUser) {
+      console.log('currentUser object', this.currentUser);
       const roles = this.currentUser.roles;
       let checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
