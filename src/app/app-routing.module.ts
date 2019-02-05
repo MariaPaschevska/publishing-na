@@ -8,15 +8,16 @@ import {BooksComponent} from "./books/books/books.component";
 import {ContactsComponent} from "./contacts/contacts.component";
 import {ProjectDetailsComponent} from "./projects/project-details/project-details.component";
 import {BookAddComponent} from "./books/book-add/book-add.component";
+import {AuthGuard} from "./authentication/auth.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: '/about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
   { path: 'books', component: BooksComponent,
     children: [
-      { path: 'add', component: BookAddComponent },
+      { path: 'add', component: BookAddComponent, canActivate: [AuthGuard] },
       { path: ':id', component: BookDetailsComponent },
-      { path: ':id/edit', component: BookEditComponent }
+      { path: ':id/edit', component: BookEditComponent, canActivate: [AuthGuard] }
     ]
   },
   { path: 'projects', component: ProjectsComponent,
