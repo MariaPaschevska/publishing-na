@@ -11,22 +11,15 @@ export class Interceptor implements HttpInterceptor {
     private authenticationService: AuthenticationService
   ){}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('Interceptor request', request);
 
-    const token: string = this.authenticationService.getToken();
-    console.log('Interceptor token', token);
-
-    // if (token) {
-    //
-    // }
+    const authToken: string = this.authenticationService.authToken;
+    console.log('Interceptor token', authToken);
 
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.authenticationService.getToken()}`
+        Authorization: `${authToken}`
       }
     });
 

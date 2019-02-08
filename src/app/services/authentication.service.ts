@@ -10,27 +10,42 @@ import {catchError, tap} from "rxjs/operators";
 export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
+  authToken: string;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  public getToken(): string {
-    return localStorage.getItem('token');
-  }
+  // getUser(login, password): Observable<User> {
+  //   const url = `${this.authUrl}?name=${login}&password=${password}`;
+  //   return this.http.get<User>(url)
+  //     .pipe(
+  //       tap(user => this.currentUser = user),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
-  getUser(login, password): Observable<User> {
+  getUser(login, password): Observable<HttpResponse<User>> {
     const url = `${this.authUrl}?name=${login}&password=${password}`;
-    return this.http.get<User>(url)
+    return this.http.get<User>(url, { observe: 'response' })
       .pipe(
-        tap(user => this.currentUser = user),
+        tap(response => {
+          const keys = response.headers.keys();
+          const headers = keys.map( key =>
+            `${key}: ${response.headers.get(key)}`
+          );
+          console.log(`AuthenticationService getUser response headers, ${headers}`);
+
+          this.authToken = response.headers.get('authorization');
+          this.currentUser = response.body;
+        }),
         catchError(this.handleError)
       );
   }
 
   checkAdmin() {
     if (this.currentUser) {
-      console.log('currentUser object', this.currentUser);
+      console.log('checkAdmin() currentUser', this.currentUser);
       const roles = this.currentUser.roles;
       let checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
