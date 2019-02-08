@@ -16,15 +16,6 @@ export class AuthenticationService {
     private http: HttpClient
   ) { }
 
-  // getUser(login, password): Observable<User> {
-  //   const url = `${this.authUrl}?name=${login}&password=${password}`;
-  //   return this.http.get<User>(url)
-  //     .pipe(
-  //       tap(user => this.currentUser = user),
-  //       catchError(this.handleError)
-  //     );
-  // }
-
   getUser(login, password): Observable<HttpResponse<User>> {
     const url = `${this.authUrl}?name=${login}&password=${password}`;
     return this.http.get<User>(url, { observe: 'response' })

@@ -33,14 +33,6 @@ export class AuthenticationComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  // getUser(login, password) {
-  //   this.authService.getUser(login, password).subscribe(
-  //     user => this.user = user,
-  //     error => console.log('AuthenticationComponent subscription getUser() error', error),
-  //     () => console.log('AuthenticationComponent subscription getUser() completed', this.user)
-  //   );
-  //}
-
   getUser(login, password) {
     this.authService.getUser(login, password).subscribe(
       response => this.user = response.body,
