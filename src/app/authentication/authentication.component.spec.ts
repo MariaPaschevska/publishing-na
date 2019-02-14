@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthenticationComponent } from './authentication.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ModalModule} from "ngx-bootstrap";
 
 describe('AuthenticationComponent', () => {
   let component: AuthenticationComponent;
@@ -8,7 +10,8 @@ describe('AuthenticationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthenticationComponent ]
+      declarations: [ AuthenticationComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, ModalModule.forRoot() ]
     })
     .compileComponents();
   }));
