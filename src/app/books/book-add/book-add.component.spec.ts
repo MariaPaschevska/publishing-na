@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookAddComponent } from './book-add.component';
+import {BookFormComponent} from "../book-form/book-form.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('BookAddComponent', () => {
   let component: BookAddComponent;
@@ -8,7 +12,8 @@ describe('BookAddComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookAddComponent ]
+      declarations: [ BookAddComponent, BookFormComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
   }));

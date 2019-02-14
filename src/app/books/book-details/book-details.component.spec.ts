@@ -1,14 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookDetailsComponent } from './book-details.component';
+import {of} from "rxjs";
+import {ActivatedRoute, RouterModule} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('BookDetailsComponent', () => {
   let component: BookDetailsComponent;
   let fixture: ComponentFixture<BookDetailsComponent>;
 
+  const fakeActivatedRoute = {
+    params: of({id: 'id'})
+  } as ActivatedRoute;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookDetailsComponent ]
+      declarations: [ BookDetailsComponent ],
+      imports: [
+        RouterModule,
+        RouterTestingModule,
+        HttpClientTestingModule],
+      providers: [ {provide: ActivatedRoute, useValue: fakeActivatedRoute} ]
     })
     .compileComponents();
   }));
