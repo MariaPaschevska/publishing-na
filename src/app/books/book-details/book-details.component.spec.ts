@@ -11,6 +11,7 @@ describe('BookDetailsComponent', () => {
   let fixture: ComponentFixture<BookDetailsComponent>;
 
   const fakeActivatedRoute = {
+    url: of({}),
     params: of({id: 'id'})
   } as ActivatedRoute;
 

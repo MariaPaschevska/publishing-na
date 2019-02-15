@@ -9,6 +9,8 @@ import {BookEditComponent} from "../../books/book-edit/book-edit.component";
 import {BookDetailsComponent} from "../../books/book-details/book-details.component";
 import {ProjectDetailsComponent} from "../project-details/project-details.component";
 import {ContactsComponent} from "../../contacts/contacts.component";
+import {BookFormComponent} from "../../books/book-form/book-form.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -24,9 +26,10 @@ describe('ProjectsComponent', () => {
         BookAddComponent,
         BookEditComponent,
         BookDetailsComponent,
+        BookFormComponent,
         ContactsComponent
       ],
-      imports: [ AppRoutingModule ]
+      imports: [ AppRoutingModule, FormsModule, ReactiveFormsModule ]
     })
     .compileComponents();
   }));
