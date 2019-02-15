@@ -15,7 +15,7 @@ export class BooksComponent implements OnInit {
   showAllBooks: boolean;
 
   constructor(
-    private booksService: BooksService,
+    public booksService: BooksService,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router

@@ -14,7 +14,7 @@ describe('BookEditComponent', () => {
 
   const fakeActivatedRoute = {
     params: of({id: 'id'})
-  } as ActivatedRoute;
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

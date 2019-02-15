@@ -13,7 +13,7 @@ describe('BookDetailsComponent', () => {
   const fakeActivatedRoute = {
     url: of({}),
     params: of({id: 'id'})
-  } as ActivatedRoute;
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
