@@ -21,10 +21,18 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
+    // reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    // browsers: ['ChromeHeadless__no_sandbox'],
+    // customLaunchers: {
+    //   ChromeHeadless__no_sandbox: {
+    //     base: 'ChromeHeadless',
+    //     flags: ['--no-sandbox']
+    //   }
+    // },
     browsers: ['Chrome'],
     singleRun: false
   });
