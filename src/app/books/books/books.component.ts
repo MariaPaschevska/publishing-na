@@ -24,6 +24,7 @@ export class BooksComponent implements OnInit {
       .subscribe(
         () => {
           this.showAllBooks = !this.route.children.length;
+          this.getBooks();
         }
       );
   }
