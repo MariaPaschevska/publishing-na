@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-file-uploader',
@@ -13,11 +14,9 @@ export class FileUploaderComponent implements OnInit {
   });
 
   selectedFile: File = null;
+  private url = 'http://82.192.179.130:2222/upload';
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(private http: HttpClient) {}
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
@@ -25,7 +24,16 @@ export class FileUploaderComponent implements OnInit {
   }
 
   onUpload() {
-    console.log('onUpload file method to be added');
+    const formData = new FormData();
+    formData.append('image', this.selectedFile, this.selectedFile.name);
+    this.http.post(this.url, formData)
+      .subscribe(response => {
+        console.log('onUpload file response', response);
+      });
+
+  }
+
+  ngOnInit(): void {
   }
 
 }
