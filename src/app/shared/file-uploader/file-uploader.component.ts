@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {HttpClient, HttpEventType} from "@angular/common/http";
+import {HttpClient, HttpEventType, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-file-uploader',
@@ -15,6 +15,14 @@ export class FileUploaderComponent implements OnInit {
 
   selectedFile: File = null;
   private url = 'http://82.192.179.130:2222/upload';
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET, POST',
+      'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
+    })
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -23,22 +31,13 @@ export class FileUploaderComponent implements OnInit {
     console.log('Selected file is', this.selectedFile);
   }
 
-  // onUpload() {
-  //   const formData = new FormData();
-  //   formData.append('image', this.selectedFile, this.selectedFile.name);
-  //   this.http.post(this.url, formData)
-  //     .subscribe(response => {
-  //       console.log('onUpload file response', response);
-  //     });
-  //
-  // }
-
   onUpload() {
     const formData = new FormData();
     formData.append('image', this.selectedFile, this.selectedFile.name);
     this.http.post(this.url, formData, {
       reportProgress: true,
-      observe: 'events'
+      observe: 'events',
+      headers: this.httpOptions.headers
     })
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
