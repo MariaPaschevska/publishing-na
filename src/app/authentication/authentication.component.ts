@@ -13,7 +13,8 @@ export class AuthenticationComponent implements OnInit {
 
   authForm = new FormGroup({
     login: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('', Validators.required),
+    checkInput: new FormControl()
   });
 
   user: User;
@@ -29,12 +30,14 @@ export class AuthenticationComponent implements OnInit {
   authEnter(): void {
     const login = this.authForm.value.login;
     const password = this.authForm.value.password;
-    this.getUser(login, password);
+    const toSave = this.authForm.value.checkInput;
+
+    this.getUser(login, password, toSave);
     this.modalRef.hide();
   }
 
-  getUser(login, password) {
-    this.authService.getUser(login, password).subscribe(
+  getUser(login, password, toSave) {
+    this.authService.getUser(login, password, toSave).subscribe(
       response => this.user = response.body,
       error => console.log('AuthenticationComponent subscription getUser() error', error),
       () => console.log('AuthenticationComponent subscription getUser() completed', this.user)

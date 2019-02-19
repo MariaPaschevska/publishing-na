@@ -16,7 +16,7 @@ export class AuthenticationService {
     private http: HttpClient
   ) { }
 
-  getUser(login, password): Observable<HttpResponse<User>> {
+  getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const url = `${this.authUrl}?name=${login}&password=${password}`;
     return this.http.get<User>(url, { observe: 'response' })
       .pipe(
@@ -26,9 +26,12 @@ export class AuthenticationService {
             `${key}: ${response.headers.get(key)}`
           );
           console.log(`AuthenticationService getUser response headers, ${headers}`);
-
           this.authToken = response.headers.get('authorization');
           this.currentUser = response.body;
+
+          if (toSave) {
+            this.saveCurrentUser(this.currentUser);
+          }
         }),
         catchError(this.handleError)
       );
@@ -36,13 +39,23 @@ export class AuthenticationService {
 
   checkAdmin() {
     if (this.currentUser) {
-      console.log('checkAdmin() currentUser', this.currentUser);
       const roles = this.currentUser.roles;
       let checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
+
+    } else if (sessionStorage.getItem('user')) {
+      const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+      const roles = sessionUser.roles;
+      let checkAdmin = role => role == 'admin';
+      return roles.some(checkAdmin);
+
     } else {
       return false;
     }
+  }
+
+  saveCurrentUser(currentUser) {
+    sessionStorage.setItem('user', JSON.stringify(currentUser));
   }
 
   private handleError(error: HttpErrorResponse) {
