@@ -12,15 +12,16 @@ export class FileUploaderComponent implements OnInit {
   fileUploadForm = new FormGroup({
     fileBrowse: new FormControl()
   });
-
   selectedFile: File = null;
+
   private url = 'http://82.192.179.130:2222/upload';
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Allow-Methods': 'GET, POST',
-      'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
+      'Content-Type': 'multipart/form-data',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+      // 'Access-Control-Allow-Origin': 'http://localhost:4200',
+      // 'Access-Control-Allow-Methods': 'GET, POST',
+      // 'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
     })
   };
 
