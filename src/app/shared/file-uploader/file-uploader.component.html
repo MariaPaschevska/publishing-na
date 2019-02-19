@@ -1,0 +1,13 @@
+<form [formGroup]="fileUploadForm" (ngSubmit)="onUpload()">
+  <div class="custom-file">
+    <input type="file" formControlName="fileBrowse" class="form-control custom-file-input" id="customFile"
+           (change)="onFileSelected($event)">
+    <label class="custom-file-label" for="customFile">Завантажте файл</label>
+    <button type="submit" class="btn btn-primary">Завантажити</button>
+  </div>
+</form>
+
+<!--<form method="POST" action="http://82.192.179.130:2222/upload" enctype = "multipart/form-data">-->
+  <!--<input type="file" name="image" id="image">-->
+  <!--<input type="submit">-->
+<!--</form>-->

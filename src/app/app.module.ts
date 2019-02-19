@@ -19,6 +19,7 @@ import { BookAddComponent } from './books/book-add/book-add.component';
 import { BookFormComponent } from './books/book-form/book-form.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import {Interceptor} from "./authentication/interceptor";
+import { FileUploaderComponent } from './shared/file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {Interceptor} from "./authentication/interceptor";
     FooterComponent,
     BookAddComponent,
     BookFormComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule,

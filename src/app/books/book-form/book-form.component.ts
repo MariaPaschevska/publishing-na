@@ -20,11 +20,8 @@ export class BookFormComponent implements OnInit {
     price: new FormControl(''),
     buyButton: new FormControl(''),
     imageUrl: new FormControl(''),
-    imageBrowse: new FormControl(''),
     description: new FormControl('', Validators.required)
   });
-
-  selectedFile: File = null;
 
   @Input() book: object;
   @Output() bookFormSaved = new EventEmitter();
@@ -38,14 +35,5 @@ export class BookFormComponent implements OnInit {
     const formData = this.bookForm.value;
     console.log('formData value', formData);
     this.bookFormSaved.emit(formData);
-  }
-
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    console.log('Selected file is', this.selectedFile);
-  }
-
-  onUpload() {
-    console.log('onUpload file method to be added');
   }
 }

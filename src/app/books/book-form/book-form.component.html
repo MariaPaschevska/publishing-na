@@ -55,12 +55,7 @@
       Вкажіть URL картинки або скористайтеся формою завантаження нової картинки нижче
     </small>
   </div>
-  <div class="custom-file">
-    <input type="file" formControlName="imageBrowse" class="form-control custom-file-input" id="customFile"
-           (change)="onFileSelected($event)">
-    <label class="custom-file-label" for="customFile">Завантажте нову картинку...</label>
-    <button type="button" class="btn btn-primary" (click)="onUpload()">Завантажити</button>
-  </div>
+  <app-file-uploader></app-file-uploader>
   <div class="form-group">
     <label>Опис:</label>
     <textarea rows="6" formControlName="description" required class="form-control"
