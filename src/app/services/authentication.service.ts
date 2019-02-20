@@ -38,15 +38,18 @@ export class AuthenticationService {
   }
 
   checkAdmin() {
+    let roles;
+    let checkAdmin;
+
     if (this.currentUser) {
-      const roles = this.currentUser.roles;
-      let checkAdmin = role => role == 'admin';
+      roles = this.currentUser.roles;
+      checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
 
     } else if (sessionStorage.getItem('user')) {
       const sessionUser = JSON.parse(sessionStorage.getItem('user'));
-      const roles = sessionUser.roles;
-      let checkAdmin = role => role == 'admin';
+      roles = sessionUser.roles;
+      checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
 
     } else {
