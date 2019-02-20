@@ -23,10 +23,6 @@ export class Interceptor implements HttpInterceptor {
       }
     });
 
-    if (!request.headers.has('Content-Type')) {
-      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-    }
-
     return next.handle(request);
   }
 }
