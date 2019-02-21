@@ -55,7 +55,9 @@
       Вкажіть URL картинки або скористайтеся формою завантаження нової картинки нижче
     </small>
   </div>
-  <app-file-uploader></app-file-uploader>
+  <app-file-uploader
+    (fileUploaded)="onFileUploaded($event)">
+  </app-file-uploader>
   <div class="form-group">
     <label>Опис:</label>
     <textarea rows="6" formControlName="description" required class="form-control"

@@ -26,14 +26,20 @@ export class BookFormComponent implements OnInit {
   @Input() book: object;
   @Output() bookFormSaved = new EventEmitter();
 
+  fileUploaded;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onFileUploaded(fileUploaded) {
+    this.fileUploaded = fileUploaded;
+  }
+
   save(): void {
     const formData = this.bookForm.value;
-    console.log('formData value', formData);
+    formData.imageUrl = this.fileUploaded;
     this.bookFormSaved.emit(formData);
   }
 }

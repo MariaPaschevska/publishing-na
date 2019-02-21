@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {HttpClient, HttpEventType} from "@angular/common/http";
 
@@ -13,9 +13,9 @@ export class FileUploaderComponent implements OnInit {
     fileBrowse: new FormControl()
   });
   selectedFile: File = null;
-  filePath: string;
 
   private url = 'http://82.192.179.130:2222/upload';
+  @Output() fileUploaded = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -34,7 +34,8 @@ export class FileUploaderComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           console.log('onUpload file progress', Math.round(event.loaded / event.total * 100) + '%');
         } else if (event.type === HttpEventType.Response) {
-          this.filePath = event.body.toString();
+          const filePath = `http://82.192.179.130:2222/${event.body.toString()}`;
+          this.fileUploaded.emit(filePath);
         }
       },
         error => console.log('onUpload error', error),
