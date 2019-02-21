@@ -30,7 +30,7 @@ export class AuthenticationService {
           this.currentUser = response.body;
 
           if (toSave) {
-            this.saveCurrentUser(this.currentUser);
+            this.saveCurrentUser(this.currentUser, this.authToken);
           }
         }),
         catchError(this.handleError)
@@ -57,7 +57,8 @@ export class AuthenticationService {
     }
   }
 
-  saveCurrentUser(currentUser) {
+  saveCurrentUser(currentUser, authToken) {
+    currentUser.token = authToken;
     sessionStorage.setItem('user', JSON.stringify(currentUser));
   }
 
