@@ -40,7 +40,9 @@ export class BookFormComponent implements OnInit {
 
   save(): void {
     const formData = this.bookForm.value;
-    formData.imageUrl = this.fileUploaded;
+    if (this.fileUploaded) {
+      formData.imageUrl = this.fileUploaded;
+    }
     this.bookFormSaved.emit(formData);
   }
 
@@ -54,7 +56,10 @@ export class BookFormComponent implements OnInit {
         isbn: this.book.isbn,
         language: this.book.language,
         translatedFrom: this.book.translatedFrom,
+        pageNumber: this.book.pageNumber,
         price: this.book.price,
+        buyButton: this.book.buyButton,
+        imageUrl: this.book.imageUrl,
         description: this.book.description
       });
     }
