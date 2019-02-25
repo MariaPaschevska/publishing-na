@@ -31,6 +31,7 @@ export class BookFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.updateFormWithCurrentValues();
   }
 
   onFileUploaded(fileUploaded) {
@@ -41,5 +42,21 @@ export class BookFormComponent implements OnInit {
     const formData = this.bookForm.value;
     formData.imageUrl = this.fileUploaded;
     this.bookFormSaved.emit(formData);
+  }
+
+  updateFormWithCurrentValues() {
+    if (this.book) {
+      this.bookForm.patchValue({
+        author: this.book.author,
+        title: this.book.title,
+        subtitle: this.book.subtitle,
+        year: this.book.year,
+        isbn: this.book.isbn,
+        language: this.book.language,
+        translatedFrom: this.book.translatedFrom,
+        price: this.book.price,
+        description: this.book.description
+      });
+    }
   }
 }
