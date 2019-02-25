@@ -1,3 +1,7 @@
+<div class="fileUploaderProgress">
+  <progressbar [animate]="true" [value]="progress"><b>{{progress}}%</b></progressbar>
+  <small><em>Файл: {{filePath}}</em></small>
+</div>
 <form [formGroup]="fileUploadForm" (ngSubmit)="onUpload()">
   <div class="custom-file">
     <input type="file" formControlName="fileBrowse" class="form-control custom-file-input" id="customFile"

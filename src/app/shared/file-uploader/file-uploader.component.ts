@@ -12,7 +12,10 @@ export class FileUploaderComponent implements OnInit {
   fileUploadForm = new FormGroup({
     fileBrowse: new FormControl()
   });
+
   selectedFile: File = null;
+  filePath;
+  progress: number;
 
   private url = 'http://82.192.179.130:2222/upload';
   @Output() fileUploaded = new EventEmitter();
@@ -32,10 +35,10 @@ export class FileUploaderComponent implements OnInit {
     })
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log('onUpload file progress', Math.round(event.loaded / event.total * 100) + '%');
+          this.progress = Math.round(event.loaded / event.total * 100);
         } else if (event.type === HttpEventType.Response) {
-          const filePath = `http://82.192.179.130:2222/${event.body.toString()}`;
-          this.fileUploaded.emit(filePath);
+          this.filePath = `http://82.192.179.130:2222/${event.body.toString()}`;
+          this.fileUploaded.emit(this.filePath);
         }
       },
         error => console.log('onUpload error', error),

@@ -11,7 +11,7 @@ import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import {CollapseModule, ModalModule} from "ngx-bootstrap";
+import {CollapseModule, ModalModule, ProgressbarModule} from "ngx-bootstrap";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
@@ -45,7 +45,8 @@ import { FileUploaderComponent } from './shared/file-uploader/file-uploader.comp
     AppRoutingModule,
     HttpClientModule,
     CollapseModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ProgressbarModule.forRoot()
   ],
   providers: [
     {
