@@ -1,43 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { BooksComponent } from './books.component';
 import {ActivatedRoute, RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterTestingModule} from "@angular/router/testing";
-import {Observable, of} from "rxjs";
+import {of} from "rxjs";
 import {BooksService} from "../../services/books.service";
+import { book } from '../../shared/fake-data/books'
 
 fdescribe('BooksComponent', () => {
   let component: BooksComponent;
   let fixture: ComponentFixture<BooksComponent>;
   let getBooksSpy;
   let bookServiceFake;
-  let testBook = {
-    id: 4,
-    isbn: '978-966-97200-3-0',
-    title: 'Плисти проти течії',
-    subtitle: 'Філософські роздуми',
-    author: 'Хорхе Анхель Ліврага',
-    year: 2015,
-    language: 'українська',
-    translatedFrom: 'іспанської',
-    pageNumber: 0,
-    description: 'Збірка філософських есеїв',
-    imgUrl: 'http://newacropolis.org.ua/uploads/production/ckeditor/picture/data/a54/7b1/d9-/a547b1d9-9a0e-427c-96fa-092e89ff9f37/content.png',
-    price: 225,
-    buyButton: true,
-    buyLink: ''
-  };
+  let serviceGetBookSpy;
+  let bookAuthor;
+  let bookTitle;
 
   const fakeActivatedRoute = {
-    url: of({})
+    url: of({}),
+    children: []
   } as ActivatedRoute;
 
-  // const bookServiceFake = {
-  //   getBooks: [testBook]
-  // };
-
   beforeEach(async(() => {
+    bookServiceFake = jasmine.createSpyObj('BooksService', ['getBooks']);
+    serviceGetBookSpy = bookServiceFake.getBooks.and.returnValue( of([book]) );
+
     TestBed.configureTestingModule({
       declarations: [ BooksComponent ],
       imports: [ RouterModule, HttpClientModule, RouterTestingModule ],
@@ -53,8 +41,10 @@ fdescribe('BooksComponent', () => {
     fixture = TestBed.createComponent(BooksComponent);
     component = fixture.componentInstance;
     getBooksSpy = spyOn(component, 'getBooks');
-    bookServiceFake = TestBed.get(BooksService);
-    // fixture.detectChanges();
+    bookAuthor = fixture.nativeElement.querySelector(
+      '.page-content .bookstore-item-wrap .bookstore-item-author span');
+    bookTitle = fixture.nativeElement.querySelector(
+      '.page-content .bookstore-item-wrap .bookstore-item-title .title');
   });
 
   it('should create', () => {
@@ -68,7 +58,20 @@ fdescribe('BooksComponent', () => {
 
   it('should call booksService.getBooks() on getBooks()', () => {
     component.getBooks();
-    const booksServiceGetBookSpy = spyOn(component.booksService, 'getBooks');
-    expect(booksServiceGetBookSpy).toHaveBeenCalled();
+    expect(serviceGetBookSpy).toHaveBeenCalled();
   });
+
+  it('should show book title and author after getBooks() (fakeAsync)', fakeAsync(() => {
+    fixture.detectChanges();
+
+    tick(100); // flush the observable to get the book
+    fixture.detectChanges(); // update view
+
+    console.log('bookAuthor', bookAuthor);
+    console.log('bookTitle', bookTitle);
+
+    expect(bookTitle.textContent).toBe(book.title, 'should show book title');
+    expect(bookAuthor.textContent).toBe(book.author, 'should show book author');
+    expect(serviceGetBookSpy.calls.any()).toBe(true, 'getBooks called');
+  }));
 });
