@@ -23,7 +23,7 @@ export class BookFormComponent implements OnInit {
     description: new FormControl('', Validators.required)
   });
 
-  @Input() book: object;
+  @Input() book;
   @Output() bookFormSaved = new EventEmitter();
 
   fileUploaded;
