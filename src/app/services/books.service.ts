@@ -48,16 +48,6 @@ export class BooksService {
       );
   }
 
-  addImage (file: File) {
-    console.log('This is an image to upload: ', file);
-    const formData = new FormData();
-    formData.append('image', file, file.name);
-    this.http.post('url', formData, httpOptions)
-      .subscribe(response => {
-        console.log('addImage response', response);
-      });
-  }
-
   /** POST: add a new book to the server */
   addBook (book: Book): Observable<Book> {
     const url = `${this.booksUrl}/${'new'}`;
