@@ -16,27 +16,6 @@ export class AuthenticationService {
     private http: HttpClient
   ) { }
 
-  // getUser(login, password, toSave): Observable<HttpResponse<User>> {
-  //   const url = `${this.authUrl}?name=${login}&password=${password}`;
-  //   return this.http.get<User>(url, { observe: 'response' })
-  //     .pipe(
-  //       tap(response => {
-  //         const keys = response.headers.keys();
-  //         const headers = keys.map( key =>
-  //           `${key}: ${response.headers.get(key)}`
-  //         );
-  //         console.log(`AuthenticationService getUser response headers, ${headers}`);
-  //         this.authToken = response.headers.get('authorization');
-  //         this.currentUser = response.body;
-  //
-  //         if (toSave) {
-  //           this.saveCurrentUser(this.currentUser, this.authToken);
-  //         }
-  //       }),
-  //       catchError(this.handleError)
-  //     );
-  // }
-
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const user = {
       name: login,
@@ -51,6 +30,7 @@ export class AuthenticationService {
           );
           console.log(`AuthenticationService getUser response headers, ${headers}`);
           this.authToken = response.headers.get('authorization');
+          console.log(`AuthenticationService authToken, ${this.authToken}`);
           this.currentUser = response.body;
 
           if (toSave) {
@@ -100,5 +80,5 @@ export class AuthenticationService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 }

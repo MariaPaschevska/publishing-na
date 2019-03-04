@@ -18,7 +18,7 @@ export class BooksService {
     private http: HttpClient
   ) { }
 
-  /** get Books from the mocked server */
+  /** get Books from the server */
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.booksUrl)
       .pipe(
@@ -27,7 +27,7 @@ export class BooksService {
       );
   }
 
-  /** get Books by id from the mocked server */
+  /** get Books by id from the server */
   getBook(id: string): Observable<Book> {
     const url = `${this.booksUrl}/${id}`;
     return this.http.get<Book>(url)
@@ -80,9 +80,12 @@ export class BooksService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      if (error.status == 401) {
+        console.log('LOGING again please');
+      }
     }
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 }
