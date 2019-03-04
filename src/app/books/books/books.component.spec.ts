@@ -6,7 +6,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterTestingModule} from "@angular/router/testing";
 import {of} from "rxjs";
 import {BooksService} from "../../services/books.service";
-import { book } from '../../shared/fake-data/books'
+import { book } from '../../shared/fake-data/books';
 
 fdescribe('BooksComponent', () => {
   let component: BooksComponent;
@@ -41,10 +41,6 @@ fdescribe('BooksComponent', () => {
     fixture = TestBed.createComponent(BooksComponent);
     component = fixture.componentInstance;
     getBooksSpy = spyOn(component, 'getBooks');
-    bookAuthor = fixture.nativeElement.querySelector(
-      '.page-content .bookstore-item-wrap .bookstore-item-author span');
-    bookTitle = fixture.nativeElement.querySelector(
-      '.page-content .bookstore-item-wrap .bookstore-item-title .title');
   });
 
   it('should create', () => {
@@ -67,8 +63,10 @@ fdescribe('BooksComponent', () => {
     tick(100); // flush the observable to get the book
     fixture.detectChanges(); // update view
 
-    console.log('bookAuthor', bookAuthor);
-    console.log('bookTitle', bookTitle);
+    bookAuthor = fixture.nativeElement.querySelector(
+      '.page-content .bookstore-item-wrap .bookstore-item-author span');
+    bookTitle = fixture.nativeElement.querySelector(
+      '.page-content .bookstore-item-wrap .bookstore-item-title .title');
 
     expect(bookTitle.textContent).toBe(book.title, 'should show book title');
     expect(bookAuthor.textContent).toBe(book.author, 'should show book author');
