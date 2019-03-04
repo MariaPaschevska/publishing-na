@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../books/book';
-import {Observable, throwError} from "rxjs";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, tap} from "rxjs/operators";
+import {Observable, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {AuthenticationComponent} from '../authentication/authentication.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,9 +15,11 @@ const httpOptions = {
 })
 export class BooksService {
   private booksUrl = 'http://82.192.179.130:2222/books';
+  bsModalRef: BsModalRef;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private modalService: BsModalService
   ) { }
 
   /** get Books from the server */
@@ -80,8 +84,11 @@ export class BooksService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-      if (error.status == 401) {
+      if (error.status === 401) {
         console.log('LOGING again please');
+        console.log('this.modalService', this.modalService);
+        // Show Login modal if auth token expired
+        this.bsModalRef = this.modalService.show(AuthenticationComponent);
       }
     }
     // return an observable with a user-facing error message
