@@ -20,7 +20,8 @@ export class BooksService {
   constructor(
     private http: HttpClient,
     private modalService: BsModalService
-  ) { }
+
+  ) {}
 
   /** get Books from the server */
   getBooks(): Observable<Book[]> {
@@ -48,7 +49,7 @@ export class BooksService {
     return this.http.put<Book>(url, book, httpOptions)
       .pipe(
         tap(_ => console.log(`updated book id=${book._id}`)),
-        catchError(this.handleError)
+        catchError(error => this.handleError(error))
       );
   }
 
@@ -58,7 +59,7 @@ export class BooksService {
     return this.http.post<Book>(url, book, httpOptions)
       .pipe(
       tap((book: Book) => console.log(`Book added with id=${book._id}`)),
-        catchError(this.handleError)
+        catchError(error => this.handleError(error))
     );
   }
 
@@ -69,10 +70,12 @@ export class BooksService {
     return this.http.delete(url, httpOptions)
       .pipe(
         tap(_ => console.log(`delete book id=${id}`)),
-        catchError(this.handleError)
+        catchError(error => this.handleError(error))
       );
 
   }
+
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -85,14 +88,17 @@ export class BooksService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
       if (error.status === 401) {
-        console.log('LOGING again please');
-        console.log('this.modalService', this.modalService);
-        // Show Login modal if auth token expired
-        this.bsModalRef = this.modalService.show(AuthenticationComponent);
+        this.showLoginModal();
       }
     }
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  showLoginModal() {
+    console.log('LOGING again please');
+    // Show Login modal if auth token expired
+    this.bsModalRef = this.modalService.show(AuthenticationComponent);
   }
 }
