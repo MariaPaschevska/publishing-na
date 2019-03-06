@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "../shared/authentication/user";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import {Observable, Subject, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 
 @Injectable({
@@ -11,10 +11,13 @@ export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
   authToken: string;
+  private subject: Subject;
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+    this.subject = new Subject();
+  }
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const user = {
@@ -61,10 +64,6 @@ export class AuthenticationService {
     }
   }
 
-  showLoginModal() {
-    alert('Вам потрібно авторизуватись');
-  }
-
   saveCurrentUser(currentUser, authToken) {
     currentUser.token = authToken;
     sessionStorage.setItem('user', JSON.stringify(currentUser));
@@ -75,8 +74,17 @@ export class AuthenticationService {
     console.log('Clearing USER');
   }
 
+  handleUserRoleError() {
+    this.clearCurrentUser();
+    this.checkAdmin();
+    this.showLoginModal();
+  }
+
+  showLoginModal() {
+    alert('Вам потрібно авторизуватись');
+  }
+
   showUserErrorMessage() {
-    console.log('User NOT found');
     alert('Користувача не знайдено');
   }
 
@@ -90,11 +98,6 @@ export class AuthenticationService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-      if (error.status === 401) {
-        this.showLoginModal();
-      } else if (error.status === 404) {
-        this.showUserErrorMessage();
-      }
     }
     // return an observable with a user-facing error message
     return throwError(

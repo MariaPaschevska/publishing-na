@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
 import {AuthenticationService} from "../../services/authentication.service";
+import {catchError, retry, tap} from "rxjs/operators";
 
 @Injectable()
 
@@ -22,6 +23,20 @@ export class Interceptor implements HttpInterceptor {
       }
     });
 
-    return next.handle(request);
+    return next.handle(request)
+      .pipe(
+        retry(1),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            console.log('Interceptor error');
+            this.authenticationService.handleUserRoleError();
+          } else if (error.status === 404) {
+            console.log('Interceptor error');
+            this.authenticationService.showUserErrorMessage();
+          } else {
+            return throwError(error);
+          }
+        })
+      );
   }
 }

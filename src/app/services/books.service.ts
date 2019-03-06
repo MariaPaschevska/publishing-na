@@ -3,9 +3,6 @@ import { Book } from '../books/book';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {AuthenticationComponent} from '../shared/authentication/authentication.component';
-import {AuthenticationService} from "./authentication.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,13 +13,9 @@ const httpOptions = {
 })
 export class BooksService {
   private booksUrl = 'http://82.192.179.130:2222/books';
-  bsModalRef: BsModalRef;
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthenticationService,
-    private modalService: BsModalService
-
+    private http: HttpClient
   ) {}
 
   /** get Books from the server */
@@ -89,19 +82,9 @@ export class BooksService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-      if (error.status === 401) {
-        this.showLoginModal();
-      }
     }
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  }
-
-  showLoginModal() {
-    console.log('LOGING again please');
-    // Show Login modal if auth token expired
-    this.authService.clearCurrentUser();
-    this.bsModalRef = this.modalService.show(AuthenticationComponent);
   }
 }
