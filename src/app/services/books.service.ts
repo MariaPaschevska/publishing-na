@@ -5,6 +5,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {AuthenticationComponent} from '../authentication/authentication.component';
+import {AuthenticationService} from "./authentication.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,6 +20,7 @@ export class BooksService {
 
   constructor(
     private http: HttpClient,
+    private authService: AuthenticationService,
     private modalService: BsModalService
 
   ) {}
@@ -99,6 +101,7 @@ export class BooksService {
   showLoginModal() {
     console.log('LOGING again please');
     // Show Login modal if auth token expired
+    this.authService.clearCurrentUser();
     this.bsModalRef = this.modalService.show(AuthenticationComponent);
   }
 }

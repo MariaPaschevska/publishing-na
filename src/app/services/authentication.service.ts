@@ -13,8 +13,8 @@ export class AuthenticationService {
   authToken: string;
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+  ) {}
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const user = {
@@ -37,7 +37,7 @@ export class AuthenticationService {
             this.saveCurrentUser(this.currentUser, this.authToken);
           }
         }),
-        catchError(this.handleError)
+        catchError(error => this.handleError(error))
       );
   }
 
@@ -61,9 +61,23 @@ export class AuthenticationService {
     }
   }
 
+  showLoginModal() {
+    alert('Вам потрібно авторизуватись');
+  }
+
   saveCurrentUser(currentUser, authToken) {
     currentUser.token = authToken;
     sessionStorage.setItem('user', JSON.stringify(currentUser));
+  }
+
+  clearCurrentUser() {
+    sessionStorage.clear();
+    console.log('Clearing USER');
+  }
+
+  showUserErrorMessage() {
+    console.log('User NOT found');
+    alert('Користувача не знайдено');
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -76,6 +90,11 @@ export class AuthenticationService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      if (error.status === 401) {
+        this.showLoginModal();
+      } else if (error.status === 404) {
+        this.showUserErrorMessage();
+      }
     }
     // return an observable with a user-facing error message
     return throwError(
