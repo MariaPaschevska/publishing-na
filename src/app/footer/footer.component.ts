@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationComponent} from "../authentication/authentication.component";
+import {AuthenticationComponent} from "../shared/authentication/authentication.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 @Component({

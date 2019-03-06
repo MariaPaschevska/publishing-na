@@ -17,8 +17,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './footer/footer.component';
 import { BookAddComponent } from './books/book-add/book-add.component';
 import { BookFormComponent } from './books/book-form/book-form.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
-import {Interceptor} from "./authentication/interceptor";
+import { AuthenticationComponent } from './shared/authentication/authentication.component';
+import {Interceptor} from "./shared/authentication/interceptor";
 import { FileUploaderComponent } from './shared/file-uploader/file-uploader.component';
 
 @NgModule({

@@ -8,7 +8,7 @@ import {BooksComponent} from "./books/books/books.component";
 import {ContactsComponent} from "./contacts/contacts.component";
 import {ProjectDetailsComponent} from "./projects/project-details/project-details.component";
 import {BookAddComponent} from "./books/book-add/book-add.component";
-import {AuthGuard} from "./authentication/auth.guard";
+import {AuthGuard} from "./shared/authentication/auth.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: '/about', pathMatch: 'full' },

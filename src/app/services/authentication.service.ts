@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User} from "../authentication/user";
+import {User} from "../shared/authentication/user";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";

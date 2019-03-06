@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {AuthenticationComponent} from '../authentication/authentication.component';
+import {AuthenticationComponent} from '../shared/authentication/authentication.component';
 import {AuthenticationService} from "./authentication.service";
 
 const httpOptions = {

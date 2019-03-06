@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../services/authentication.service";
+import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "./user";
 
 @Component({
