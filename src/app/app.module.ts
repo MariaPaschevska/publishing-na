@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +20,6 @@ import { BookFormComponent } from './books/book-form/book-form.component';
 import { AuthenticationComponent } from './shared/authentication/authentication.component';
 import {Interceptor} from "./shared/authentication/interceptor";
 import { FileUploaderComponent } from './shared/file-uploader/file-uploader.component';
-import {GlobalErrorHandler} from "./global-error-handler";
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import {GlobalErrorHandler} from "./global-error-handler";
     FooterComponent,
     BookAddComponent,
     BookFormComponent,
-    AuthenticationComponent,
     FileUploaderComponent
   ],
   imports: [
@@ -54,9 +52,6 @@ import {GlobalErrorHandler} from "./global-error-handler";
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
-    },
-    { provide: ErrorHandler,
-      useClass: GlobalErrorHandler
     }
   ],
   entryComponents: [
