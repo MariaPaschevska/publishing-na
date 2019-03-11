@@ -20,6 +20,7 @@ import { BookFormComponent } from './books/book-form/book-form.component';
 import { AuthenticationComponent } from './shared/authentication/authentication.component';
 import {Interceptor} from "./shared/authentication/interceptor";
 import { FileUploaderComponent } from './shared/file-uploader/file-uploader.component';
+import {AuthErrorMessageComponent} from "./shared/authentication/auth-error-message/auth-error-message.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FileUploaderComponent } from './shared/file-uploader/file-uploader.comp
     BookAddComponent,
     BookFormComponent,
     FileUploaderComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    AuthErrorMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { FileUploaderComponent } from './shared/file-uploader/file-uploader.comp
     }
   ],
   entryComponents: [
-    AuthenticationComponent
+    AuthenticationComponent,
+    AuthErrorMessageComponent
   ],
   bootstrap: [AppComponent]
 })
