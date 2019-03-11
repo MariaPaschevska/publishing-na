@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "../shared/authentication/user";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import {Observable, Subject, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 import {AuthErrorMessageComponent} from "../shared/authentication/auth-error-message/auth-error-message.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
@@ -14,11 +14,14 @@ export class AuthenticationService {
   currentUser: User;
   authToken: string;
   public modalRef: BsModalRef;
+  public subject: Subject<any>;
 
   constructor(
     private http: HttpClient,
     private modalService: BsModalService
-  ) {}
+  ) {
+    this.subject = new Subject();
+  }
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const user = {
@@ -80,6 +83,7 @@ export class AuthenticationService {
       this.modalRef = this.modalService.show(AuthErrorMessageComponent);
     } else if  (error.status === 401) {
       console.log('401 Вам потрібно авторизуватись');
+      this.subject.next();
       this.clearCurrentUser();
     } else {
       return throwError(error);

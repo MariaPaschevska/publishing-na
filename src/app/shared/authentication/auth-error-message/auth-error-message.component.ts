@@ -12,6 +12,7 @@ export class AuthErrorMessageComponent implements OnInit {
     public modalRef: BsModalRef
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

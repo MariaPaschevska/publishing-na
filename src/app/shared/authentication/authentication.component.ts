@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef} from "ngx-bootstrap";
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "./user";
@@ -21,8 +21,15 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     public modalRef: BsModalRef,
-    private authService: AuthenticationService
-  ) { }
+    private authService: AuthenticationService,
+    private modalService: BsModalService
+  ) {
+    authService.subject.subscribe(
+      () => {
+        console.log('AuthenticationComponent Subject catched');
+        this.modalService.show(this)
+      });
+  }
 
   ngOnInit() {
   }
@@ -39,8 +46,8 @@ export class AuthenticationComponent implements OnInit {
   getUser(login, password, toSave) {
     this.authService.getUser(login, password, toSave).subscribe(
       response => this.user = response.body,
-      error => console.log('AuthenticationComponent subscription getUser() error', error),
-      () => console.log('AuthenticationComponent subscription getUser() completed', this.user)
+      error => console.log('AuthenticationComponent getUser() error', error),
+      () => console.log('AuthenticationComponent getUser() completed', this.user)
     );
   }
 }
