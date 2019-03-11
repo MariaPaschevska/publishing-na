@@ -35,7 +35,8 @@ import { FileUploaderComponent } from './shared/file-uploader/file-uploader.comp
     FooterComponent,
     BookAddComponent,
     BookFormComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,

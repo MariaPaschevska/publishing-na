@@ -17,7 +17,7 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
-  openAdminFormModal() {
+  openAuthLoginFormModal() {
     this.bsModalRef = this.modalService.show(AuthenticationComponent);
   }
 
