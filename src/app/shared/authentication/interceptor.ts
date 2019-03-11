@@ -27,12 +27,8 @@ export class Interceptor implements HttpInterceptor {
       .pipe(
         retry(1),
         catchError((error: HttpErrorResponse) => {
-          if (error.status === 401) {
-            console.log('Interceptor error');
-            this.authenticationService.handleUserRoleError();
-          } else if (error.status === 404) {
-            console.log('Interceptor error');
-            this.authenticationService.showUserErrorMessage();
+          if (error.status === 401 || error.status === 404) {
+            this.authenticationService.handleAuthError(error);
           } else {
             return throwError(error);
           }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "../shared/authentication/user";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Observable, Subject, throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 
 @Injectable({
@@ -11,13 +11,10 @@ export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
   authToken: string;
-  private subject: Subject;
 
   constructor(
     private http: HttpClient,
-  ) {
-    this.subject = new Subject();
-  }
+  ) {}
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
     const user = {
@@ -71,21 +68,26 @@ export class AuthenticationService {
 
   clearCurrentUser() {
     sessionStorage.clear();
-    console.log('Clearing USER');
   }
 
-  handleUserRoleError() {
-    this.clearCurrentUser();
-    this.checkAdmin();
-    this.showLoginModal();
-  }
+  // handleUserRoleError() {
+  //   this.clearCurrentUser();
+  //   this.checkAdmin();
+  //   this.showLoginModal();
+  // }
 
   showLoginModal() {
     alert('Вам потрібно авторизуватись');
   }
 
-  showUserErrorMessage() {
-    alert('Користувача не знайдено');
+  handleAuthError(error) {
+    if (error.status === 404) {
+      console.log('404 Користувача не знайдено');
+    } else if  (error.status === 401) {
+      console.log('401 Вам потрібно авторизуватись');
+    } else {
+      return throwError(error);
+    }
   }
 
   private handleError(error: HttpErrorResponse) {
