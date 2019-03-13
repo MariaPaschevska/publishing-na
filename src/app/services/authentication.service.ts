@@ -16,6 +16,7 @@ export class AuthenticationService {
     private http: HttpClient,
     private uiDispatcher: UiDispatcherService
   ) {
+    this.isSessionUser();
   }
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
@@ -49,13 +50,6 @@ export class AuthenticationService {
       roles = this.currentUser.roles;
       checkAdmin = role => role == 'admin';
       return roles.some(checkAdmin);
-
-    } else if (sessionStorage.getItem('user')) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user'));
-      roles = sessionUser.roles;
-      checkAdmin = role => role == 'admin';
-      return roles.some(checkAdmin);
-
     } else {
       return false;
     }
@@ -69,13 +63,17 @@ export class AuthenticationService {
     sessionStorage.clear();
   }
 
+  isSessionUser() {
+    if (!sessionStorage.getItem('user')) {
+      return;
+    }
+    this.currentUser = JSON.parse(sessionStorage.getItem('user'));
+  }
+
   getAuthToken() {
     let authToken;
     if (this.currentUser) {
       authToken = this.currentUser.token;
-    } else if (sessionStorage.getItem('user')) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user'));
-      authToken = sessionUser.token;
     }
     return authToken;
   }
