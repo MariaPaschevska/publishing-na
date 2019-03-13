@@ -35,9 +35,9 @@ export class AuthenticationService {
           this.authToken = response.headers.get('authorization');
           console.log(`AuthenticationService authToken, ${this.authToken}`);
           this.currentUser = response.body;
-
+          this.currentUser.token = this.authToken;
           if (toSave) {
-            this.saveCurrentUser(this.currentUser, this.authToken);
+            this.saveCurrentUser(this.currentUser);
           }
         }),
         catchError(error => this.handleError(error))
@@ -64,13 +64,24 @@ export class AuthenticationService {
     }
   }
 
-  saveCurrentUser(currentUser, authToken) {
-    currentUser.token = authToken;
+  saveCurrentUser(currentUser) {
     sessionStorage.setItem('user', JSON.stringify(currentUser));
   }
 
   clearCurrentUser() {
     sessionStorage.clear();
+  }
+
+  getAuthToken() {
+    if (this.authToken == undefined) {
+      if (this.currentUser) {
+        this.authToken = this.currentUser.token;
+      } else if (sessionStorage.getItem('user')) {
+        const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+        this.authToken = sessionUser.token;
+      }
+    }
+    return this.authToken;
   }
 
   handleAuthError(error) {
@@ -81,6 +92,7 @@ export class AuthenticationService {
       console.log('401 Вам потрібно авторизуватись');
       this.uiDispatcher.authModalSubject.next();
       this.clearCurrentUser();
+      this.checkAdmin();
     } else {
       return throwError(error);
     }
