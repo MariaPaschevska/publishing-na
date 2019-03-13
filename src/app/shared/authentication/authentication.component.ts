@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {BsModalRef} from "ngx-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "./user";
@@ -21,15 +21,8 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     public modalRef: BsModalRef,
-    private authService: AuthenticationService,
-    private modalService: BsModalService
-  ) {
-    authService.subject.subscribe(
-      () => {
-        console.log('AuthenticationComponent Subject catched');
-        this.modalService.show(this)
-      });
-  }
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
   }
