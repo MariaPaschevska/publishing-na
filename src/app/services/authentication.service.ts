@@ -11,7 +11,6 @@ import {UiDispatcherService} from "./ui-dispatcher.service";
 export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
-  authToken: string;
 
   constructor(
     private http: HttpClient,
@@ -32,10 +31,8 @@ export class AuthenticationService {
             `${key}: ${response.headers.get(key)}`
           );
           console.log(`AuthenticationService getUser response headers, ${headers}`);
-          this.authToken = response.headers.get('authorization');
-          console.log(`AuthenticationService authToken, ${this.authToken}`);
           this.currentUser = response.body;
-          this.currentUser.token = this.authToken;
+          this.currentUser.token = response.headers.get('authorization');
           if (toSave) {
             this.saveCurrentUser(this.currentUser);
           }
@@ -73,15 +70,14 @@ export class AuthenticationService {
   }
 
   getAuthToken() {
-    if (!this.authToken) {
-      if (this.currentUser) {
-        this.authToken = this.currentUser.token;
-      } else if (sessionStorage.getItem('user')) {
-        const sessionUser = JSON.parse(sessionStorage.getItem('user'));
-        this.authToken = sessionUser.token;
-      }
+    let authToken;
+    if (this.currentUser) {
+      authToken = this.currentUser.token;
+    } else if (sessionStorage.getItem('user')) {
+      const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+      authToken = sessionUser.token;
     }
-    return this.authToken;
+    return authToken;
   }
 
   handleAuthError(error) {
