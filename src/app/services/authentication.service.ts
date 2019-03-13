@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {User} from "../shared/authentication/user";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {Observable, Subject, throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
+import {UiDispatcherService} from "./ui-dispatcher.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,11 @@ export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
   authToken: string;
-  public loginErrorSubject: Subject<any>;
-  public authModalSubject: Subject<any>;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private uiDispatcher: UiDispatcherService
   ) {
-    this.loginErrorSubject = new Subject();
-    this.authModalSubject = new Subject();
   }
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
@@ -78,10 +76,10 @@ export class AuthenticationService {
   handleAuthError(error) {
     if (error.status === 404) {
       console.log('404 Користувача не знайдено');
-      this.loginErrorSubject.next();
+      this.uiDispatcher.loginErrorSubject.next();
     } else if  (error.status === 401) {
       console.log('401 Вам потрібно авторизуватись');
-      this.authModalSubject.next();
+      this.uiDispatcher.authModalSubject.next();
       this.clearCurrentUser();
     } else {
       return throwError(error);

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../services/authentication.service";
+import {UiDispatcherService} from "../services/ui-dispatcher.service";
 
 @Component({
   selector: 'app-footer',
@@ -9,13 +9,13 @@ import {AuthenticationService} from "../services/authentication.service";
 export class FooterComponent implements OnInit {
 
   constructor(
-    private authService: AuthenticationService
+    private uiDispatcher: UiDispatcherService
   ) { }
 
   ngOnInit() {
   }
 
   openAuthLoginFormModal() {
-    this.authService.authModalSubject.next();
+    this.uiDispatcher.authModalSubject.next();
   }
 }

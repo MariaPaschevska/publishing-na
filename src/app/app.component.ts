@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
-import {AuthenticationService} from "./services/authentication.service";
 import {AuthenticationComponent} from './shared/authentication/authentication.component'
 import {AuthErrorMessageComponent} from "./shared/authentication/auth-error-message/auth-error-message.component";
+import {UiDispatcherService} from "./services/ui-dispatcher.service";
 
 @Component({
   selector: 'app-root',
@@ -16,13 +16,13 @@ export class AppComponent {
 
   constructor(
     private modalService: BsModalService,
-    private authService: AuthenticationService
+    private uiDispatcher: UiDispatcherService
   ) {
-    authService.authModalSubject.subscribe(
+    uiDispatcher.authModalSubject.subscribe(
       () => {
         this.modalRef = this.modalService.show(AuthenticationComponent);
       });
-    authService.loginErrorSubject.subscribe(
+    uiDispatcher.loginErrorSubject.subscribe(
       () => {
         this.modalRef = this.modalService.show(AuthErrorMessageComponent);
       });
