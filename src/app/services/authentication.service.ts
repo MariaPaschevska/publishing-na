@@ -16,7 +16,7 @@ export class AuthenticationService {
     private http: HttpClient,
     private uiDispatcher: UiDispatcherService
   ) {
-    this.isSessionUser();
+    this.getUserSession();
   }
 
   getUser(login, password, toSave): Observable<HttpResponse<User>> {
@@ -63,7 +63,7 @@ export class AuthenticationService {
     sessionStorage.clear();
   }
 
-  isSessionUser() {
+  getUserSession() {
     if (!sessionStorage.getItem('user')) {
       return;
     }
@@ -71,11 +71,7 @@ export class AuthenticationService {
   }
 
   getAuthToken() {
-    let authToken;
-    if (this.currentUser) {
-      authToken = this.currentUser.token;
-    }
-    return authToken;
+    return this.currentUser && this.currentUser.token || null
   }
 
   handleAuthError(error) {
