@@ -73,7 +73,7 @@ export class AuthenticationService {
   }
 
   getAuthToken() {
-    if (this.authToken == undefined) {
+    if (!this.authToken) {
       if (this.currentUser) {
         this.authToken = this.currentUser.token;
       } else if (sessionStorage.getItem('user')) {
