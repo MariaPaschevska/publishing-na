@@ -11,6 +11,7 @@ import {UiDispatcherService} from "./ui-dispatcher.service";
 export class AuthenticationService {
   private authUrl = 'http://82.192.179.130:2222/auth';
   currentUser: User;
+  isAdmin: boolean;
 
   constructor(
     private http: HttpClient,
@@ -34,6 +35,7 @@ export class AuthenticationService {
           console.log(`AuthenticationService getUser response headers, ${headers}`);
           this.currentUser = response.body;
           this.currentUser.token = response.headers.get('authorization');
+          this.checkAdmin();
           if (toSave) {
             this.saveCurrentUser(this.currentUser);
           }
@@ -43,16 +45,9 @@ export class AuthenticationService {
   }
 
   checkAdmin() {
-    let roles;
-    let checkAdmin;
-
-    if (this.currentUser) {
-      roles = this.currentUser.roles;
-      checkAdmin = role => role == 'admin';
-      return roles.some(checkAdmin);
-    } else {
-      return false;
-    }
+    let roles = this.currentUser.roles;
+    let checkAdmin = role => role === 'admin';
+    return this.isAdmin = roles.some(checkAdmin);
   }
 
   saveCurrentUser(currentUser) {
@@ -68,6 +63,7 @@ export class AuthenticationService {
       return;
     }
     this.currentUser = JSON.parse(sessionStorage.getItem('user'));
+    this.checkAdmin();
   }
 
   getAuthToken() {
@@ -82,7 +78,7 @@ export class AuthenticationService {
       console.log('401 Вам потрібно авторизуватись');
       this.uiDispatcher.authModalSubject.next();
       this.clearCurrentUser();
-      this.checkAdmin();
+      this.isAdmin = false;
     } else {
       return throwError(error);
     }

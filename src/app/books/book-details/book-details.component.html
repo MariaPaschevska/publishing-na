@@ -41,7 +41,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-info"
-              *ngIf="authService.checkAdmin()"
+              *ngIf="authService.isAdmin"
               (click)="openBookEditPage(book._id)">Редагувати</button>
     </div>
   </div>

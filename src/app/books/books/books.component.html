@@ -4,12 +4,12 @@
       <h2>Наші книги</h2>
       <p>Придбати книги можна у всіх представництвах «Нового Акрополя» в Україні та книгарнях вашого міста, а також у <a href="https://www.facebook.com/NewAcropolisPublishing/shop/" target="_blank">Facebook-крамниці</a>.</p>
       <button type="button" class="btn btn-info"
-              [routerLink]="['/books/add']" *ngIf="authService.checkAdmin()">Додати книгу</button>
+              [routerLink]="['/books/add']" *ngIf="authService.isAdmin">Додати книгу</button>
     </div>
   </div>
   <div class="row">
     <div class="col-md-4 col-lg-3 col-sm-6 bookstore-item-wrap" *ngFor="let book of booksList">
-      <div [className]="authService.checkAdmin() ? 'bookstore-item-content admin' : 'bookstore-item-content user'">
+      <div [className]="authService.isAdmin ? 'bookstore-item-content admin' : 'bookstore-item-content user'">
         <div class="bookstore-item-image" (click)="openBookDetailsPage(book._id)">
           <div class="bookstore-item-image-holder">
             <img src="{{book.imageUrl}}" alt="{{book.title}}" title="{{book.title}}">
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div class="admin-buttons" *ngIf="authService.checkAdmin()">
+        <div class="admin-buttons" *ngIf="authService.isAdmin">
           <button type="button" class="btn btn-info"
                   (click)="openBookEditPage(book._id)">Редагувати</button>
           <button type="button" class="btn btn-danger"
